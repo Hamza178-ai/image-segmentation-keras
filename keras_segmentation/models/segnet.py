@@ -3,8 +3,6 @@ from keras.layers import *
 
 from .config import IMAGE_ORDERING
 from .model_utils import get_segmentation_model
-from .vgg16 import get_vgg_encoder
-from .mobilenet import get_mobilenet_encoder
 from .basic_models import vanilla_encoder
 from .resnet50 import get_resnet50_encoder
 
@@ -62,12 +60,7 @@ def segnet(n_classes, input_height=416, input_width=608, encoder_level=3):
     return model
 
 
-def vgg_segnet(n_classes, input_height=416, input_width=608, encoder_level=3):
 
-    model = _segnet(n_classes, get_vgg_encoder,  input_height=input_height,
-                    input_width=input_width, encoder_level=encoder_level)
-    model.model_name = "vgg_segnet"
-    return model
 
 
 def resnet50_segnet(n_classes, input_height=416, input_width=608,
@@ -79,18 +72,9 @@ def resnet50_segnet(n_classes, input_height=416, input_width=608,
     return model
 
 
-def mobilenet_segnet(n_classes, input_height=224, input_width=224,
-                     encoder_level=3):
-
-    model = _segnet(n_classes, get_mobilenet_encoder,
-                    input_height=input_height,
-                    input_width=input_width, encoder_level=encoder_level)
-    model.model_name = "mobilenet_segnet"
-    return model
 
 
 if __name__ == '__main__':
-    m = vgg_segnet(101)
     m = segnet(101)
     # m = mobilenet_segnet( 101 )
     # from keras.utils import plot_model
